@@ -7,15 +7,11 @@ jobs:
         - name: Greetings
           run: echo "Hellow World"
    
-  Code:
+  Code_build:
     runs-on: ubuntu-latest
     steps:
       - name: getting the Code
         uses: actions/checkout@v4
 
-  build:
-    needs: Code
-    runs-on: ubuntu-latest
-    steps:
       - name: build the Code
         run: mvn install
