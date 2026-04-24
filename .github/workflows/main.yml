@@ -1,30 +1,37 @@
 name: demo-spc-build-workflow
-on: [workflow_dispatch]
+
+on: 
+  workflow_dispatch:
+
 jobs:
   say-hello:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Greetings
-          run: echo "Hellow World"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greetings
+        run: echo "Hello World"
    
   Code_build:
     runs-on: ubuntu-latest
     steps:
-      - name: getting the Code
+      - name: Get the Code
         uses: actions/checkout@v4
 
-      - name: Code Analysis
-        run: mvn test
+      - name: Set up JDK
+        # It's highly recommended to explicitly set up Java before running Maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17' # Change this to your project's Java version
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Package Code
+        # 'clean package' runs tests and builds the artifact
+        run: mvn clean package 
       
-      - name: install the Code
-        run: mvn install
-
-      - name: Build The Code
-        run: mvn package
-
       - name: Upload The Artifact
         uses: actions/upload-artifact@v4
         with:
           name: my-build-output
-          path: dist
-
+          # Updated to Maven's default output directory. 
+          # You can change this to 'target/*.jar' to upload just the jar file.
+          path: target/
