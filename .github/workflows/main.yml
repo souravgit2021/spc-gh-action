@@ -13,5 +13,11 @@ jobs:
       - name: getting the Code
         uses: actions/checkout@v4
 
-      - name: build the Code
+      - name: Code Analysis
+        run: mvn test
+      
+      - name: install the Code
         run: mvn install
+
+      - name: Build The Code
+        run: mvn build 
