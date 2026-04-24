@@ -21,3 +21,10 @@ jobs:
 
       - name: Build The Code
         run: mvn package
+
+      - name: Upload The Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-build-output
+          path: dist
+
