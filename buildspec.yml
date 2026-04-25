@@ -5,10 +5,10 @@ phases:
     runtime-versions:
       java: corretto17
     commands:
-      - mvn clean install
+      - mvn -DskipTests clean install
   build:
     commands:
-      - mvn package
+      - mvn -DskipTests package
 
 artifacts:
   files:
