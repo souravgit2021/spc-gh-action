@@ -1,19 +1,14 @@
-version: 0.2
-
 phases:
-   setup-java:
-      runtime-versions:
-           java: corretto17
-    
-    Install:
-      commands:
-           - mvn clean install
+  install:
+    runtime-versions:
+      java: corretto17
+    commands:
+      - mvn clean install
+  build:
+    commands:
+      - mvn package
 
-    Build:
-      commands:
-           - mvn package
-
-Artifacts:
-   files:
-     - 'target/*.jar'
-   name: myBuildArtifact
+artifacts:
+  files:
+    - 'target/*.jar'
+  name: myBuildArtifact
