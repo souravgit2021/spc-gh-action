@@ -1,37 +1,35 @@
-name: demo-spc-build-workflow
-
-on: 
-  workflow_dispatch:
-
+name: Demo Spring Pet Clinic GH Action Job
+on: workflow_dispatch
 jobs:
-  say-hello:
+ spc-app: 
     runs-on: ubuntu-latest
     steps:
-      - name: Greetings
-        run: echo "Hello World"
-   
-  Code_build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get the Code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        # It's highly recommended to explicitly set up Java before running Maven
+      - name: setup-java
         uses: actions/setup-java@v4
         with:
-          java-version: '17' # Change this to your project's Java version
+          java-version: '21'
           distribution: 'temurin'
-          cache: maven
-
-      - name: Build and Package Code
-        # 'clean package' runs tests and builds the artifact
-        run: mvn clean package 
       
-      - name: Upload The Artifact
+      - name: Code CheckOut
+        uses: actions/checkout@v4
+
+      - name: Code Testing
+        run: mvn test
+
+      - name: Install The App
+        run: mvn -DskipTests clean Install
+
+      - name: Package The App
+        run:  mvn package
+
+      - name: Upload The Artifactory
         uses: actions/upload-artifact@v4
         with:
-          name: my-build-output
-          # Updated to Maven's default output directory. 
-          # You can change this to 'target/*.jar' to upload just the jar file.
+          name: my-build-artifact
+          path: target/
+
+      - name: Download The Artifactory
+        uses: actions/download-artifact@v4
+        with:
+          name: my-build-artifact
           path: target/
