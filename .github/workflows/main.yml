@@ -17,7 +17,7 @@ jobs:
         run: mvn test
 
       - name: Install The App
-        run: mvn -DskipTests clean Install
+        run: mvn -DskipTests clean install
 
       - name: Package The App
         run:  mvn package
