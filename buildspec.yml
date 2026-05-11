@@ -1,16 +1,14 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      java: corretto17
-    commands:
-      - mvn -DskipTests clean install
-  build:
-    commands:
-      - mvn -DskipTests package
+   install: 
+       runtime-versions:
+           java: corretto17
 
-artifacts:
-  files:
-    - 'target/*.jar'
-  name: myBuildArtifact
+   build: 
+     commands:
+         - mvn install
+
+   test:          
+     commands:
+         - mvn test
