@@ -1,35 +1,15 @@
-name: Demo Spring Pet Clinic GH Action Job
+name: demo spring app github action workflow
 on: workflow_dispatch
+
 jobs:
- spc-app: 
-    runs-on: ubuntu-latest
-    steps:
-      - name: setup-java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-      
-      - name: Code CheckOut
-        uses: actions/checkout@v4
+  build-and-test:
+       runs-on: ubuntu-latest
+       steps:
+          - name: checkout code
+            uses: actions/checkout@v4
+        
+          - name: build code
+            run: mvn install
 
-      - name: Code Testing
-        run: mvn test
-
-      - name: Install The App
-        run: mvn -DskipTests clean install
-
-      - name: Package The App
-        run:  mvn package
-
-      - name: Upload The Artifactory
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-build-artifact
-          path: target/
-
-      - name: Download The Artifactory
-        uses: actions/download-artifact@v4
-        with:
-          name: my-build-artifact
-          path: target/
+          - name: test code
+            run: mvn test
