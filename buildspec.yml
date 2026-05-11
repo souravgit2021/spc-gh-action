@@ -7,5 +7,5 @@ phases:
 
    build: 
      commands:
-         - mvn install
+         - mvn clean install
          - mvn test
