@@ -4,6 +4,8 @@ on: workflow_dispatch
 jobs:
   build-and-test:
        runs-on: ubuntu-latest
+       env:
+         MY_VAR: "Hellow World"
        steps:
           - name: checkout code
             uses: actions/checkout@v4
@@ -13,3 +15,9 @@ jobs:
 
           - name: test code
             run: mvn test
+
+          - name: Local Variable Print Test
+            run: echo "The Value is $MY_VAR"
+
+          - name: Repo Variable Print test
+            run: echo "The Repo Variable is "${{vars.Name}}""
