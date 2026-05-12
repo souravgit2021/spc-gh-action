@@ -8,3 +8,5 @@ phases:
    build: 
      commands:
          - mvn clean install -DskipTests
+         - echo "The Value Of Parameter is $MY_Param"
+         - echo "My Name Is = $Name"
