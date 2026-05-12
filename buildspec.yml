@@ -1,5 +1,8 @@
 version: 0.2
-
+env:
+  parameter-store:
+       My_Param: "My_Param"
+       Name: "Name"
 phases:
    install: 
        runtime-versions:
@@ -8,5 +11,5 @@ phases:
    build: 
      commands:
          - mvn clean install -DskipTests
-         - echo "The Value Of Parameter is $MY_Param"
+         - echo "The Value Of Parameter is $My_Param"
          - echo "My Name Is = $Name"
