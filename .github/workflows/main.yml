@@ -20,7 +20,7 @@ jobs:
             run: echo "The Value is $MY_VAR"
 
           - name: Repo Variable Print test
-            run: echo "The Repo Variable is "${{var.Name}}""
+            run: echo "The Repo Variable is "${{vars.Name}}""
 
           - name: Archive Production Artifacts
             uses: actions/upload-artifact@v4
@@ -34,3 +34,4 @@ jobs:
               name: dist-files
               path: download-files/
           - run: ls downloaded-files/
+          
