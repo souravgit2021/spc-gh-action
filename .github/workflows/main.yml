@@ -11,7 +11,7 @@ jobs:
             uses: actions/checkout@v4
         
           - name: build code
-            run: mvn install
+            run: mvn clean install
 
           - name: test code
             run: mvn test
@@ -20,4 +20,17 @@ jobs:
             run: echo "The Value is $MY_VAR"
 
           - name: Repo Variable Print test
-            run: echo "The Repo Variable is "${{vars.Name}}""
+            run: echo "The Repo Variable is "${{var.Name}}""
+
+          - name: Archive Production Artifacts
+            uses: actions/upload-artifact@v4
+            with:
+              name: dist-files
+              path: target/*.jar
+
+          - name: Download archived artifacts
+            uses: actions/download-artifact@v4
+            with:
+              name: dist-files
+              path: download-files/
+          - run: ls downloaded-files/
