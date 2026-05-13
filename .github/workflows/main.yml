@@ -33,5 +33,5 @@ jobs:
             with:
               name: dist-files
               path: download-files/
-          - run: ls downloaded-files/
+          - run: ls download-files/
           
