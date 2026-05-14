@@ -41,7 +41,7 @@ jobs:
       - name: Repo Variable Print test
         run: echo "The Repo Variable is ${{ vars.Name }}"
 
-      - Name: Archive Production Artifacts
+      - name: Archive Production Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
