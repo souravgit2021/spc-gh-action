@@ -3,35 +3,54 @@ on: workflow_dispatch
 
 jobs:
   build-and-test:
-       runs-on: ubuntu-latest
-       env:
-         MY_VAR: "Hellow World"
-       steps:
-          - name: checkout code
-            uses: actions/checkout@v4
-        
-          - name: build code
-            run: mvn clean install
+    runs-on: ubuntu-latest
+    env:
+      MY_VAR: "Hellow World"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+    
+      # 1. MUST set up Java before running any Maven commands
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-          - name: test code
-            run: mvn test
+      # 2. MUST restore cache BEFORE running mvn test or mvn clean install
+      - name: Cache Maven Packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      
+      # 3. Cache will now be used here to speed up tests
+      - name: Test code
+        run: mvn test
 
-          - name: Local Variable Print Test
-            run: echo "The Value is $MY_VAR"
+      # 4. Cache will be used here as well
+      - name: Build code
+        run: mvn clean install -DskipTests # Skiptests added since they ran above
 
-          - name: Repo Variable Print test
-            run: echo "The Repo Variable is "${{vars.Name}}""
+      - name: Local Variable Print Test
+        run: echo "The Value is $MY_VAR"
 
-          - name: Archive Production Artifacts
-            uses: actions/upload-artifact@v4
-            with:
-              name: dist-files
-              path: target/*.jar
+      # 5. Fixed the nested double quotes syntax
+      - name: Repo Variable Print test
+        run: echo "The Repo Variable is ${{ vars.Name }}"
 
-          - name: Download archived artifacts
-            uses: actions/download-artifact@v4
-            with:
-              name: dist-files
-              path: download-files/
-          - run: ls download-files/
-          
+      - Name: Archive Production Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: target/*.jar
+
+      - name: Download archived artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: download-files/
+
+      - run: ls download-files/
