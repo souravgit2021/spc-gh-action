@@ -1,21 +1,35 @@
 version: 0.2
+
 env:
   parameter-store:
-       My_Param: "My_Param"
-       Name: "Name"
-phases:
-   install: 
-       runtime-versions:
-           java: corretto17
+    # Fixed indentation spaces
+    My_Param: "My_Param"
+    Name: "Name"
 
-   build: 
-     commands:
-         - mvn clean install -DskipTests
-         - echo "The Value Of Parameter is $My_Param"
-         - echo "My Name Is = $Name"
+phases:
+  install: 
+    runtime-versions:
+      java: corretto17
+    commands:
+      # Optional optimization: pre-download plugins & core dependencies early
+      - mvn dependency:resolve dependency:resolve-plugins -q
+
+  build: 
+    commands:
+      # Compiles code and bypasses running tests
+      - mvn clean install -DskipTests
+      - echo "The Value Of Parameter is $My_Param"
+      - echo "My Name Is = $Name"
     
 artifacts:
-     files:
-       - 'target/*.jar'
-     base_directory: 'dist'
-     discard-paths: no
+  files:
+    # Looks for any JAR files created inside the target folder
+    - 'target/*.jar'
+  # Fixed underscore to hyphen; removed 'dist' directory constraint
+  base-directory: '.' 
+  discard-paths: no
+
+# Dictates what local or S3 directory gets cached across builds
+cache:
+  paths:
+    - '/root/.m2/**/*'
