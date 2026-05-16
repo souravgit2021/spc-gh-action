@@ -1,0 +1,16 @@
+name: Demo Git Hub Action WorkFlow
+on: workflow_dispatch
+jobs:
+  Introduction:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Greetings
+          run: echo "Hellow World"
+
+  Variable_Demo:
+      env:
+        dept: "Engineering"
+      runs-on: ubuntu-latest
+      steps:
+        - name: printing variable values
+          run: echo "My Depertment is $dept"
