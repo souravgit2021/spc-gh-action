@@ -8,6 +8,7 @@ jobs:
           run: echo "Hellow World"
 
   Variable_Demo:
+      needs: Introduction
       env:
         dept: "Engineering"
       runs-on: ubuntu-latest
