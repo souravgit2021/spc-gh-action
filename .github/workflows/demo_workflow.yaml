@@ -7,6 +7,13 @@ jobs:
         - name: Greetings
           run: echo "Hellow World"
 
+        - name: Generate Greeting
+          id: greet_step
+          run: echo "messege=Hellow_Sourav" >> $GITHUB_OUTPUT
+
+        - name: Use Greeting
+          run: echo "The messege was ${{ steps.greet_step.outputs.messege }}"
+
   Variable_Demo:
       needs: Introduction
       env:
