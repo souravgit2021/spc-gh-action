@@ -1,5 +1,6 @@
 name: demo spring app github action workflow
-on: workflow_dispatch
+# on: workflow_dispatch
+on: push
 
 jobs:
   build-and-test:
@@ -57,4 +58,4 @@ jobs:
       - run: ls download-files/
 
       - name: Dump GitHub Context
-        run: echo "${{ toJson(github) }}"
+        run: echo '${{ toJson(github) }}'
