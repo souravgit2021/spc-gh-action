@@ -1,24 +1,60 @@
-name: Demo Git Hub Action WorkFlow
+name: demo spring app github action workflow
 on: workflow_dispatch
+
 jobs:
-  Introduction:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Greetings
-          run: echo "Hellow World"
+  build-and-test:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    env:
+      MY_VAR: "Hellow World"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+    
+      # 1. MUST set up Java before running any Maven commands
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-        - name: Generate Greeting
-          id: greet_step
-          run: echo "messege=Hellow_Sourav" >> $GITHUB_OUTPUT
+      # 2. MUST restore cache BEFORE running mvn test or mvn clean install
+      - name: Cache Maven Packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      
+      # 3. Cache will now be used here to speed up tests
+      - name: Test code
+        run: mvn test
 
-        - name: Use Greeting
-          run: echo "The messege was ${{ steps.greet_step.outputs.messege }}"
+      # 4. Cache will be used here as well
+      - name: Build code
+        run: mvn clean install -DskipTests # Skiptests added since they ran above
 
-  Variable_Demo:
-      needs: Introduction
-      env:
-        dept: "Engineering"
-      runs-on: ubuntu-latest
-      steps:
-        - name: printing variable values
-          run: echo "My Depertment is $dept"
+      - name: Local Variable Print Test
+        run: echo "The Value is $MY_VAR"
+
+      # 5. Fixed the nested double quotes syntax
+      - name: Repo Variable Print test
+        run: echo "The Repo Variable is ${{ vars.Name }}"
+
+      - name: Archive Production Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: target/*.jar
+
+      - name: Download archived artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: download-files/
+
+      - run: ls download-files/
+
+      - name: Dump GitHub Context
+        run: echo "${{ toJson(github) }}"
