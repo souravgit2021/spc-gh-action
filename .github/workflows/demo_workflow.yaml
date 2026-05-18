@@ -8,8 +8,8 @@ on:
           - feature
       paths:
           - 'README.md'
-      paths-ignore:
-          - 'buildspec.yml'
+      # paths-ignore:
+      #     - 'buildspec.yml'
 
 jobs:
   build-and-test:
