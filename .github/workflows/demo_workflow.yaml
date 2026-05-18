@@ -4,7 +4,12 @@ on:
   push:
       branches:
           - main
+      branches_ignore:
           - feature
+      paths:
+          - 'README.md'
+      paths-ignore:
+          - 'buildspec.yml'
 
 jobs:
   build-and-test:
