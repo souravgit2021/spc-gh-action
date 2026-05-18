@@ -1,6 +1,10 @@
 name: demo spring app github action workflow
 # on: workflow_dispatch
-on: push
+on: 
+  push:
+      branches:
+          - main
+          - feature
 
 jobs:
   build-and-test:
