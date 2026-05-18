@@ -20,6 +20,11 @@ phases:
       - mvn clean install -DskipTests
       - echo "The Value Of Parameter is $My_Param"
       - echo "My Name Is = $Name"
+
+    finally:
+      - echo "This will Run even if the critical command in the BUild Command Failed"
+
+  
     
 artifacts:
   files:
