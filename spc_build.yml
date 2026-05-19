@@ -1,10 +1,10 @@
 version: 0.2
 
-env:
-  variables:
-    IMAGE_REPO_NAME: spring-pet-app
-    AWS_DEFAULT_REGION: us-east-2
-    ACCOUNT_ID: 102512866166
+# env:
+#   variables:
+#     IMAGE_REPO_NAME: spc-public-repo
+#     AWS_DEFAULT_REGION: us-east-2
+#     ACCOUNT_ID: 102512866166
 
 phases:
   install:
@@ -14,17 +14,16 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m0f1n0m5
         
 
   build:
     commands:
       - echo Build started
-      - docker build -t $IMAGE_REPO_NAME .
-      - docker tag $IMAGE_REPO_NAME:latest $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
-
+      - docker build -t spc-public-repo .
+      - docker tag spc-public-repo:latest public.ecr.aws/m0f1n0m5/spc-public-repo:latest
   post_build:
     commands:
       - echo Pushing Docker image
-      - docker push $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
+      - docker push public.ecr.aws/m0f1n0m5/spc-public-repo:latest
       - echo Build completed
