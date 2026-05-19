@@ -6,14 +6,14 @@ jobs:
      environment: Production
      steps:
        - name: deploy
-         run: echo "Deploying to environment - $env"
+         run: echo "Deploying to environment - ${{ vars.env }}"
 
   Stage_deploy:
      runs-on: ubuntu-latest
      environment: Staging
      steps:
        - name: deploy
-         run: echo "Deploying to environment - $env"
+         run: echo "Deploying to environment - ${{ vars.env }}"
 
 
   test_deploy:
@@ -21,4 +21,4 @@ jobs:
      environment: Testing
      steps:
        - name: deploy
-         run: echo "Deploying to environment - $env"
+         run: echo "Deploying to environment - ${{ vars.env }}"
