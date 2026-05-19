@@ -21,7 +21,9 @@ phases:
     commands:
       - echo Build started
       - docker pull public.ecr.aws/m0f1n0m5/maven:3.9.6-eclipse-temurin-17
+      - docker tag public.ecr.aws/m0f1n0m5/maven:3.9.6-eclipse-temurin-17 maven:3.9.6-eclipse-temurin-17
       - docker pull public.ecr.aws/m0f1n0m5/eclipse-temurin:17-jre-jammy
+      - docker tag public.ecr.aws/m0f1n0m5/eclipse-temurin:17-jre-jammy eclipse-temurin:17-jre-jammy
       - docker build -t spc-public-repo .
       - docker tag spc-public-repo:latest public.ecr.aws/m0f1n0m5/spc-public-repo:latest
   post_build:
