@@ -10,3 +10,6 @@ jobs:
 
       - name: SPC Image Build
         run: docker build -t spc:0.1 .
+
+      - name: Print Docker Images
+        run: docker image ls 
