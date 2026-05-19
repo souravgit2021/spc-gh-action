@@ -8,8 +8,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: SPC Image Build
-        run: docker build -t spc:0.1 .
+      
+      - name: Login to Docker Hub
+        uses: [docker/login-action]
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Print Docker Images
-        run: docker image ls 
+      - name: Set up Docker Buildx
+        uses: [docker/setup-buildx-action]
+
+      - name: Build and push
+        uses: [docker/build-push-action]
+        with:
+          context: .
+          push: true
+          tags: docsourav1992/spring_pet_clinic:latest
