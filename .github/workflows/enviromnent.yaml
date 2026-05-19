@@ -6,19 +6,19 @@ jobs:
      environment: Production
      steps:
        - name: deploy
-         run: echo "Deploying to Production"
+         run: echo "Deploying to environment - $env"
 
   Stage_deploy:
      runs-on: ubuntu-latest
      environment: Staging
      steps:
        - name: deploy
-         run: echo "Deploying in Staging"
+         run: echo "Deploying to environment - $env"
+
 
   test_deploy:
      runs-on: ubuntu-latest
      environment: Testing
      steps:
        - name: deploy
-         run: echo "Deploying in Testing"
-  
+         run: echo "Deploying to environment - $env"
