@@ -19,6 +19,7 @@ phases:
 
   build:
     commands:
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m0f1n0m5
       - echo Build started
       - docker build -t spc-public-repo .
       - docker tag spc-public-repo:latest public.ecr.aws/m0f1n0m5/spc-public-repo:latest
