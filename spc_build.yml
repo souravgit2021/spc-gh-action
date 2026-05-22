@@ -24,10 +24,16 @@ phases:
       - docker tag public.ecr.aws/m0f1n0m5/maven:3.9.6-eclipse-temurin-17 maven:3.9.6-eclipse-temurin-17
       - docker pull public.ecr.aws/m0f1n0m5/eclipse-temurin:17-jre-jammy
       - docker tag public.ecr.aws/m0f1n0m5/eclipse-temurin:17-jre-jammy eclipse-temurin:17-jre-jammy
-      - docker build -t spc-public-repo .
-      - docker tag spc-public-repo:latest public.ecr.aws/m0f1n0m5/spc-public-repo:latest
+      - mvn -DskipTests clean install
+      - docker build -t spc:0.1 .
+      - docker image ls
+      - docker run -d --name spc-app -p 8888:8080 spc:0.1
+      - docker ps
+      - ip r 
+      # - docker build -t spc-public-repo .
+      # - docker tag spc-public-repo:latest public.ecr.aws/m0f1n0m5/spc-public-repo:latest
   post_build:
     commands:
-      - echo Pushing Docker image
-      - docker push public.ecr.aws/m0f1n0m5/spc-public-repo:latest
+      # - echo Pushing Docker image
+      # - docker push public.ecr.aws/m0f1n0m5/spc-public-repo:latest
       - echo Build completed
