@@ -22,3 +22,6 @@ jobs:
 
         - name: Print Docker Instances
           run: docker ps
+
+        - name: Print Ip
+          run: ip r
