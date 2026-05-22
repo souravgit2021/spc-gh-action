@@ -13,3 +13,12 @@ jobs:
 
         - name: Build Docker Image
           run: docker build -t spc:0.1 .
+
+        - name: Print docker images
+          run: docker image ls
+
+        - name: Running an SPC docker instance
+          run: docker run -d --name spc-pet -p 8888:8080 spc:0.1
+
+        - name: Print Docker Instances
+          run: docker ps
