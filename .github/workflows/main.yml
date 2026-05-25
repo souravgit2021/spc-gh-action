@@ -65,5 +65,5 @@ jobs:
       - name: Sync files to S3
         run: |
               ls -l
-              aws s3 cp ./target/spring-petclinic-4.0.0-SNAPSHOT.jar s3://demo-s3-monitoring-bucket/
+              aws s3 cp ./target/*.jar s3://demo-s3-monitoring-bucket/spc-artifacts-gh-action/
 
