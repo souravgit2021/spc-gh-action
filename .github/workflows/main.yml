@@ -64,5 +64,6 @@ jobs:
 
       - name: Sync files to S3
         run: |
-              aws s3 cp ./dist-files/*.jar s3://demo-s3-monitoring-bucket/ --recursive
+              ls -l
+              aws s3 cp ./target/*.jar s3://demo-s3-monitoring-bucket/ --recursive
 
