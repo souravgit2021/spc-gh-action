@@ -3,7 +3,7 @@ on: workflow_call
 
 jobs:
   job1:
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     steps:
       - name: Greetings
         run: echo "Hellow World"
