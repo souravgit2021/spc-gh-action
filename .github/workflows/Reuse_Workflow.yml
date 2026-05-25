@@ -1,0 +1,9 @@
+name: Reusable Workflow Demo
+on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu latest
+    steps:
+      - name: Greetings
+        run: echo "Hellow World"
