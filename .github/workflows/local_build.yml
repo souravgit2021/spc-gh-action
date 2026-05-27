@@ -3,7 +3,10 @@ on: workflow_dispatch
 
 jobs:
   build_and_push:
-      runs-on: ubuntu-latest
+      runs-on: ${{ matrix.os }}
+      strategy:
+          matrix:
+            os: [ubuntu-latest,windows-latest]
       steps:
         - name: Code CheckOut
           uses: actions/checkout@v4
