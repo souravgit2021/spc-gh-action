@@ -7,6 +7,6 @@ phases:
     commands:
        - echo "MVN Build Started"
        - mvn -DskipTests clean install
-  attifacts:
+attifacts:
     files:
       - 'target/*.jar'
