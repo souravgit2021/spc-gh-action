@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11 # Or corretto8 / corretto17 depending on your project
+            python: 3.8  # Or corretto8 / corretto17 depending on your project
   build:
     commands:
       - echo "MVN Build Started"
