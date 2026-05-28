@@ -1,12 +1,14 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      java: corretto11 # Or corretto8 / corretto17 depending on your project
   build:
     commands:
-       - echo "MVN Build Started"
-       - mvn -DskipTests clean install
-attifacts:
-    files:
-      - 'target/*.jar'
+      - echo "MVN Build Started"
+      - mvn -DskipTests clean install
+
+artifacts:
+  files:
+    - 'target/*.jar' # Adjust this to match the specific files/folders you need
