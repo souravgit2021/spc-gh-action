@@ -5,7 +5,8 @@ jobs:
   deploy:
      runs-on: ubuntu-latest
      outputs:
-        my_shared_var: ${{ steps.set_var.my_value }}
+        # FIXED: Added .outputs and matched the step ID "set-var"
+        my_shared_var: ${{ steps.set-var.outputs.my_value }}
      steps:
        - name: Generate the Value
          id: set-var
@@ -17,7 +18,8 @@ jobs:
     steps:
        - name: Printing The Value
          run: |
-           echo "The value received is {{ needs.deploy.outputs.my_shared_var }}"
+           # FIXED: Added the missing "$" to evaluate the GitHub expression
+           echo "The value received is ${{ needs.deploy.outputs.my_shared_var }}"
 
   build_job:
       runs-on: ubuntu-latest
