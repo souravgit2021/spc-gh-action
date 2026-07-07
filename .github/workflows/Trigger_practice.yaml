@@ -1,0 +1,15 @@
+name: CI Code PipeLine
+on:
+ push:
+  branches:
+     - main
+  paths-ignore:
+     - 'src/**'
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greetings
+        run: |
+          echo "Good Evening"
