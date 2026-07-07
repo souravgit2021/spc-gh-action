@@ -1,15 +1,27 @@
 name: CI Code PipeLine
 on:
  push:
-  branches:
+   branches:
      - main
-  paths-ignore:
+   paths-ignore:
      - 'src/**'
+ issues:
+    types: [opened, labeled]
+
+
 
 jobs:
-  job1:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Greetings
-        run: |
-          echo "Good Evening"
+  Greetings_Job:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Greetings
+            run: |
+              echo "Good Evening"
+    
+  Triage:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Process-issue
+          run: |
+            echo "An Issue was created"
+            echo "Action Type: ${{ github.event.action }}"
