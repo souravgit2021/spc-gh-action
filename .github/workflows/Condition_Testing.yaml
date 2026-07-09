@@ -4,10 +4,14 @@ on: workflow_dispatch
 jobs:
   production_deploy:
          runs-on: ubuntu-latest
-         if: github.ref == 'rfs/heads/main'
+         if: github.ref == 'refs/heads/main'
          steps:
            - name: CheckOut Code
              uses: actions/checkout@v4
+
+           - name: Greetings
+             run: |
+               echo "Hellow World"
 
            - name: Run Only on pull Requests
              if: github.event_name == 'pull_request'
