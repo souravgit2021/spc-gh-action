@@ -1,0 +1,15 @@
+name: Github_Actions Conditional Testing
+on: workflow_dispatch
+
+jobs:
+  production_deploy:
+         runs-on: ubuntu-latest
+         if: github.ref == 'rfs/heads/main'
+         steps:
+           - name: CheckOut Code
+             uses: actions/checkout@v4
+
+           - name: Run Only on pull Requests
+             if: github.event_name == 'pull_request'
+             run: |
+               echo "This is a PR Build!"
