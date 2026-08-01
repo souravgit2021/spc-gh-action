@@ -22,3 +22,11 @@ jobs:
      steps:
        - name: deploy
          run: echo "Deploying to environment - ${{ vars.env }}"
+
+  
+  Repo_deploy:
+     runs-on: ubuntu-latest
+    #  environment: Testing
+     steps:
+       - name: Repo Env Print
+         run: echo "Deploying to environment - ${{ vars.Name }}"
