@@ -13,5 +13,5 @@ jobs:
 
       # This step only runs if the branch is exactly 'refs/heads/main'
       - name: Deploy to Production
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/dev'
         run: echo "Deploying The Artifact. To Production ..."
