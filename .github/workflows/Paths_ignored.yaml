@@ -1,0 +1,17 @@
+name: Branch Filter Workflow with Paths Ignored
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Build
+        run: echo "Triggered on target branches while ignoring documentation and markdown files!"
