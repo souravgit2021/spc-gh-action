@@ -15,3 +15,20 @@ jobs:
       - name: Upload Test Logs
         if: always()   # Acts as the "finally" block
         run: echo "Uploading logs regardless of success or failure"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Flaky Linter
+        id: linter
+        run: exit 1 # Simulating a failure
+        continue-on-error: true
+
+      - name: Check Linter Outcome
+        # We must check 'outcome' instead of using 'failure()' because 
+        # continue-on-error prevented the job itself from entering a failed state.
+        if: steps.linter.outcome == 'failure'
+        run: echo "The linter failed, but the build is still going!"
+
+      - name: Critical Build Step
+        run: echo "This step runs normally because the previous error was ignored."
