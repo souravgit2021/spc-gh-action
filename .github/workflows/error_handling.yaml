@@ -1,0 +1,17 @@
+name: Error Handling Project
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run test suite
+        run: exit 1 # If this fails, the next step is skipped
+
+      - name: Notify Slack on Failure
+        if: failure()  # Acts as the "catch" block
+        run: echo "Sending failure alert to Slack..."
+
+      - name: Upload Test Logs
+        if: always()   # Acts as the "finally" block
+        run: echo "Uploading logs regardless of success or failure"
