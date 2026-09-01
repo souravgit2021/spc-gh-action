@@ -1,8 +1,6 @@
 name: AWS OIDC Authentication
 
-on:
-  push:
-    branches: [ main ]
+on: workflow_dispatch
 
 # CRITICAL: These permissions are required to request the OIDC JWT token
 permissions:
@@ -19,7 +17,7 @@ jobs:
       - name: Configure AWS Credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::102512866166:role/AWS-Oidc-GitHub_Actions
+          role-to-assume: arn:aws:iam::102512866166:role/gh-action-oidc
           aws-region: us-east-2 # Replace with your target region
 
       - name: Verify AWS Authentication
